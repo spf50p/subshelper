@@ -58,6 +58,7 @@ subscription:
   title: SubsHelper                      # optional
   title_url_text: Subscription URL       # optional
   base_url: https://s.subshelper.42      # optional
+  path_segment: s                        # optional, base_url/path_segment/id
   global_headers:                        # minimum one header is required
     profile-title: SubsHelper
     profile-update-interval: 10

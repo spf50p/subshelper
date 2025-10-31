@@ -30,6 +30,7 @@ type Subscription struct {
 	Title         string            `yaml:"title"`
 	TitleUrlText  string            `yaml:"title_url_text"`
 	BaseUrl       string            `yaml:"base_url"`
+	PathSegment   string            `yaml:"path_segment"`
 	GlobalHeaders map[string]string `yaml:"global_headers"`
 	Subs          []Sub             `yaml:"subs"`
 }

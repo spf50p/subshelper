@@ -112,7 +112,7 @@ func run(cmd *cobra.Command, args []string) {
 		htmlx := tpl.HtmlIndex{
 			Title:        conf.Conf.Subscription.Title,
 			TitleUrlText: conf.Conf.Subscription.TitleUrlText,
-			Url:          filepath.Join(conf.Conf.Subscription.BaseUrl, sub.ID, ""),
+			Url:          filepath.Join(conf.Conf.Subscription.BaseUrl, conf.Conf.Subscription.PathSegment, sub.ID, ""),
 			SubLinks:     subLinks,
 		}
 		contentIndexHTML, err := tpl.Execute(htmlx, "indexHtml", tpl.IndexHTMLTpl)
