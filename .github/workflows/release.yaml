@@ -1,0 +1,44 @@
+name: subshelper release
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - "**/*.md"
+      - "**/.gitignore"
+      - "LICENSE"
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+
+      - name: Build subshelper
+        run: |
+          make build-linux-amd64
+          make build-darwin-arm64
+
+      - name: Set variables
+        shell: bash
+        run: echo "VERSION=$(date +%Y%m%d-%H%M)" >> $GITHUB_ENV
+
+      - name: Release
+        run: |
+          gh release create ${{ env.VERSION }} \
+            ./.bin/subshelper-linux-amd64 \
+            ./.bin/subshelper-darwin-arm64 \
+            -t ${{ env.VERSION }} \
+            --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
