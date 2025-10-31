@@ -50,7 +50,7 @@ s.subshelper.42 {
 }
 ```
 
-Example `~/.subshelper.yaml` config:
+Example `~/.subshelper.yaml` config ([default values here](https://github.com/spf50p/subshelper/blob/d6b25173a7f50e632680d878793b022aea20f924/conf/conf.go#L11)):
 
 ```yaml
 work_dir: .work_dir
