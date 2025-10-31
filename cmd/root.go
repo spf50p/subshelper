@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 	"slices"
@@ -109,10 +110,16 @@ func run(cmd *cobra.Command, args []string) {
 			}
 			subLinks = append(subLinks, tpl.HtmlIndexSubLink{Title: strings.TrimSpace(title), Link: link})
 		}
+
+		httpUrl, err := url.JoinPath(conf.Conf.Subscription.BaseUrl, conf.Conf.Subscription.PathSegment, sub.ID, "")
+		if err != nil {
+			log.Fatalf("Failed to join http url: %v", err)
+		}
+
 		htmlx := tpl.HtmlIndex{
 			Title:        conf.Conf.Subscription.Title,
 			TitleUrlText: conf.Conf.Subscription.TitleUrlText,
-			Url:          filepath.Join(conf.Conf.Subscription.BaseUrl, conf.Conf.Subscription.PathSegment, sub.ID, ""),
+			Url:          httpUrl,
 			SubLinks:     subLinks,
 		}
 		contentIndexHTML, err := tpl.Execute(htmlx, "indexHtml", tpl.IndexHTMLTpl)
