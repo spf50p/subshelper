@@ -11,7 +11,7 @@ type GlobalHeader struct {
 	Headers map[string]string
 }
 
-var SubHeaderTpl = `@{{ .SubID }} path /{{ .SubID }} /{{ .SubID }}/
+var SubHeaderTpl = `@{{ .SubID }} path{{if .PathSegment}} /{{ .PathSegment }}/{{ .SubID }} /{{ .PathSegment }}/{{ .SubID }}/{{else}} /{{ .SubID }} /{{ .SubID }}/{{end}}
 header @{{ .SubID }} {
 	defer
 	{{- range $key, $value := .Headers }}
@@ -21,6 +21,7 @@ header @{{ .SubID }} {
 `
 
 type SubHeader struct {
-	SubID   string
-	Headers map[string]string
+	SubID       string
+	PathSegment string
+	Headers     map[string]string
 }

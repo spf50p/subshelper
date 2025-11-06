@@ -74,7 +74,11 @@ func run(cmd *cobra.Command, args []string) {
 		// .headers.caddy file
 		headersCaddyPath := filepath.Join(subDir, ".headers.caddy")
 		if len(sub.Headers) > 0 {
-			contentSubHeadersCaddy, err := tpl.Execute(tpl.SubHeader{SubID: sub.ID, Headers: sub.Headers}, "subHeader", tpl.SubHeaderTpl)
+			contentSubHeadersCaddy, err := tpl.Execute(tpl.SubHeader{
+				SubID:       sub.ID,
+				PathSegment: conf.Conf.Subscription.PathSegment,
+				Headers:     sub.Headers,
+			}, "subHeader", tpl.SubHeaderTpl)
 			if err != nil {
 				log.Fatalf("Failed to get sub headers content: %v", err)
 			}
